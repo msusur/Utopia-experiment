@@ -2,17 +2,24 @@ const Age = require('./creatures/entities/Age'),
   Creature = require('./creatures/entities/Creature'),
   Chromosome = require('./creatures/entities/Chromosome'),
   Gender = require('./creatures/entities/Gender'),
-  Guid = require('./creatures/entities/Guid');
+  Guid = require('./creatures/entities/Guid'),
+  Map = require('./geography/map');
 // BehaviorBuilder = require('./builders/BehaviorBuilder');
 
-let adam = new Creature(Guid.MakeNew(),
+const adam = new Creature(Guid.MakeNew(),
   Chromosome.Random(),
   Gender.Male, Age.FromYears(10));
 
-let eve = new Creature(Guid.MakeNew(),
+const eve = new Creature(Guid.MakeNew(),
   Chromosome.Random(),
   Gender.Female,
   Age.FromYears(10));
+
+const map = new Map();
+map.addCreature({ x: 10, y: 10 }, adam);
+map.addCreature({ x: 10, y: 11 }, eve);
+map.addFood({ x: 3, y: 3 });
+map.addWater({ x: 2, y: 3 });
 
 console.log(adam);
 console.log(eve);
