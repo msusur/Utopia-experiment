@@ -19,15 +19,20 @@ class Map2D {
   }
 
   addItem({ x, y }, item) {
-    if (isEmpty({ x, y })) {
+    if (this.isEmpty({ x, y })) {
       return;
     }
     this.locations[x, y] = item;
+    item.location = { x, y };
     return { x, y };
   }
 
   isEmpty({ x, y }) {
     return typeof this.locations[x, y] === 'undefined';
+  }
+
+  getItemOn({ x, y }) {
+    return this.locations[x, y];
   }
 }
 

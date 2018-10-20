@@ -10,6 +10,14 @@ class RandomHelper {
     return RandomHelper.GenerateUpTo(100 ^ precision) <= (percent * 10 ^ precision);
   }
 
+  static PickOneItem(items) {
+    if (!items.length) {
+      throw new Error('Not an array.');
+    }
+
+    return items[Math.floor(Math.random() * items.length)];
+  }
+
   static PickOneOrRandomize(first, second, maxValue) {
     let result = 0;
     while (result <= 0) {

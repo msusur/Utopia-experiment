@@ -3,7 +3,8 @@ const Age = require('./creatures/entities/Age'),
   Chromosome = require('./creatures/entities/Chromosome'),
   Gender = require('./creatures/entities/Gender'),
   Guid = require('./creatures/entities/Guid'),
-  Map = require('./geography/map');
+  Map = require('./geography/map'),
+  World = require('./world');
 // BehaviorBuilder = require('./builders/BehaviorBuilder');
 
 const adam = new Creature(Guid.MakeNew(),
@@ -21,9 +22,11 @@ map.addCreature({ x: 10, y: 11 }, eve);
 map.addFood({ x: 3, y: 3 });
 map.addWater({ x: 2, y: 3 });
 
-console.log(adam);
-console.log(eve);
-
+const world = new World(map, [adam, eve]);
+while (world.iterate()) {
+  console.log(`Eve: [${eve.location.x}, ${eve.location.y}]`);
+  console.log(`Adam: [${adam.location.x}, ${adam.location.y}]`);
+}
 // let daysPast = 0;
 
 // while (daysPast < 365 * 20) {
