@@ -11,6 +11,10 @@ class MathHelper {
     }
     return p;
   }
+
+  static addPercent(value, percent) {
+    return value + value * (percent / 100);
+  }
 }
 
 module.exports = MathHelper;

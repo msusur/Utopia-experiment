@@ -1,12 +1,19 @@
 const moveCreatures = (map, creatures) => {
   for (let idx = 0; idx < creatures.length; idx++) {
     const creature = creatures[idx];
-    const newLocation = creature.move();
-    const itemOnLocation = map.getItemOn(newLocation);
-    if (typeof itemOnLocation !== 'undefined') {
-      creature.interactWith(itemOnLocation);
+    const nearLocations = map.getLocationsAround(creature);
+
+    const newLocation = creature.move(nearLocations, map);
+    if (creature.isInNeed()) {
+      console.log(`this one can't move anymore. food: ${creature.needs.food}, water: ${creature.needs.water}`);
+
+    } else {
+      const itemOnLocation = map.getItemOn(newLocation);
+      if (typeof itemOnLocation !== 'undefined') {
+        creature.interactWith(itemOnLocation);
+      }
+      creature.location = newLocation;
     }
-    map.addItem(creature.location, creature)
   }
 };
 
@@ -18,7 +25,14 @@ class World {
 
   iterate() {
     moveCreatures(this.map, this.creatures);
-    return true;
+    let canContinue = true;
+    for (let idx = 0; idx < this.creatures.length; idx++) {
+      if (this.creatures[idx].isInNeed()) {
+        canContinue = false;
+        break;
+      }
+    }
+    return canContinue;
   }
 }
 

@@ -19,7 +19,7 @@ class Map2D {
   }
 
   addItem({ x, y }, item) {
-    if (this.isEmpty({ x, y })) {
+    if (!this.isEmpty({ x, y })) {
       return;
     }
     this.locations[x, y] = item;
@@ -29,6 +29,17 @@ class Map2D {
 
   isEmpty({ x, y }) {
     return typeof this.locations[x, y] === 'undefined';
+  }
+
+  getLocationsAround(creature) {
+    const loc = creature.location;
+    // Can only move between 4 locations.
+    return [
+      { x: loc.x, y: loc.y + 1 },
+      { x: loc.x, y: loc.y - 1 },
+      { x: loc.x + 1, y: loc.y },
+      { x: loc.x - 1, y: loc.y }
+    ];
   }
 
   getItemOn({ x, y }) {
